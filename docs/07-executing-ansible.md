@@ -172,8 +172,8 @@ For enterprise environments, consider using AWX (open-source) or Red Hat AAP (Re
 When working with cloud providers or other dynamic environments:
 
 ```bash
-# Using AWS EC2 dynamic inventory
-ansible-playbook -i inventory_aws_ec2.yml site.yml
+# Using Azure RM dynamic inventory
+ansible-playbook -i azure_rm.yml site.yml
 ```
 
 ## Common Execution Patterns
