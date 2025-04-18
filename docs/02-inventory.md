@@ -152,8 +152,8 @@ Dynamic inventories are scripts or plugins that generate inventory data on the f
 Ansible provides inventory scripts for many cloud providers:
 
 ```bash
-# Using an AWS EC2 dynamic inventory
-ansible-playbook -i inventory_aws_ec2.yml playbook.yml
+# Using an Azure RM dynamic inventory
+ansible-playbook -i azure_rm.yml playbook.yml
 ```
 
 ### Creating Custom Dynamic Inventories
