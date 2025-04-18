@@ -6,7 +6,7 @@ Ansible is an open-source automation tool that simplifies configuration manageme
 
 ## History and Creation
 
-Ansible was created by Michael DeHaan in February 2012. The name "Ansible" comes from science fiction literature, referring to a fictional device capable of near-instantaneous communication across vast distances.
+Ansible was created by Michael DeHaan in February 2012. The name “Ansible” comes from the science fiction novel “Ender’s Game” by Orson Scott Card. In the book, ansible is a fictional device that enables instantaneous communication across vast distances.
 
 In October 2015, Ansible was acquired by Red Hat, which has continued to develop and support the platform while maintaining its open-source nature. Since then, Ansible has grown to become one of the most popular automation tools in the IT industry.
 
