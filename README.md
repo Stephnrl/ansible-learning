@@ -79,21 +79,8 @@ ansible-learning/
 5. Master variables and facts in `docs/05-variables.md`
 6. Follow best practices from `docs/06-best-practices.md`
 
-## Contributing
-
-Feel free to contribute to this repository by adding examples, improving documentation, or fixing issues. Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
 ## Resources
 
 - [Official Ansible Documentation](https://docs.ansible.com/)
 - [Ansible Galaxy](https://galaxy.ansible.com/) - Community repository for roles
 - [Ansible Blog](https://www.ansible.com/blog)
-
-## License
-
-This repository is licensed under the MIT License - see the LICENSE file for details.
