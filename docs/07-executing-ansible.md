@@ -242,6 +242,6 @@ For zero-downtime deployments:
 
 ## Conclusion
 
-Effective Ansible execution involves choosing the right command-line options, execution strategy, and environment for your specific needs. As your Ansible usage matures, you'll likely move from simple local execution to automated pipelines using GitHub Actions or dedicated tools like AWX/Tower.
+Effective Ansible execution involves choosing the right command-line options, execution strategy, and environment for your specific needs. As your Ansible usage matures, you'll likely move from simple local execution to automated pipelines using GitHub Actions or dedicated tools like AWX/AAP.
 
 Remember that automation is an incremental journey. Start with simple manual execution for testing, then progressively add more automation as your confidence and requirements grow.
