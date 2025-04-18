@@ -49,7 +49,7 @@ Control Node                           Managed Nodes
                                        
                                        +---------------+
                                        |               |
-                                       | Node N        |
+                                       | Node 3        |
                                        |               |
                                        +---------------+
 ```
