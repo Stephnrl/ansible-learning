@@ -165,6 +165,7 @@ For enterprise environments, consider using AWX (open-source) or Red Hat AAP (Re
 2. Manage credentials securely
 3. Track execution history
 4. Implement role-based access control
+5. Event-Driven Ansible
 
 ## Running Ansible with Dynamic Inventory
 
