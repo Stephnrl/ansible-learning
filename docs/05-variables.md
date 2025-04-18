@@ -120,22 +120,153 @@ ansible-playbook playbook.yml -e @extra_vars.json
 
 ## Variable Precedence
 
-From lowest to highest precedence:
+Variable precedence in Ansible determines which variable definition takes priority when the same variable is defined in multiple locations. Understanding this precedence is crucial for effective variable management in complex Ansible projects.
 
-1. Role defaults (`roles/x/defaults/main.yml`)
-2. Inventory variables (defined in inventory file)
-3. Inventory group_vars/all
-4. Playbook group_vars/all
-5. Inventory group_vars/specific_group
-6. Playbook group_vars/specific_group
-7. Inventory host_vars/specific_host
-8. Playbook host_vars/specific_host
-9. Host facts
-10. Play variables (in the play)
-11. Task variables (only for the task)
-12. Role variables (`roles/x/vars/main.yml`)
-13. Block variables (only for tasks in block)
-14. Extra variables (`-e` in command line)
+## Complete Precedence Order (Lowest to Highest)
+
+1. **Role defaults** (`roles/x/defaults/main.yml`)
+   * Intentionally lowest precedence
+   * Easily overridden baseline values
+
+2. **Inventory-defined variables**
+   * Defined directly in inventory files
+   ```ini
+   [webservers]
+   web1.example.com http_port=80
+   
+   [webservers:vars]
+   http_port=80
+   ```
+
+3. **Inventory group_vars/all**
+   * Variables in `inventory_directory/group_vars/all.yml`
+   * Apply to all hosts in a specific inventory (environment)
+
+4. **Playbook group_vars/all**
+   * Variables in `playbook_directory/group_vars/all.yml`
+   * Apply to all hosts across all inventories
+   * Override inventory-level all variables
+
+5. **Inventory group_vars/specific_group**
+   * Variables in `inventory_directory/group_vars/webservers.yml`
+   * Apply to specific groups in a specific inventory
+
+6. **Playbook group_vars/specific_group**
+   * Variables in `playbook_directory/group_vars/webservers.yml`
+   * Apply to specific groups across all inventories
+   * Override inventory-level group variables
+
+7. **Inventory host_vars/specific_host**
+   * Variables in `inventory_directory/host_vars/web1.yml`
+   * Apply to specific hosts in a specific inventory
+
+8. **Playbook host_vars/specific_host**
+   * Variables in `playbook_directory/host_vars/web1.yml`
+   * Apply to specific hosts across all inventories
+   * Override inventory-level host variables
+
+9. **Host facts**
+   * Automatically gathered information about hosts
+
+10. **Play variables**
+    * Defined directly in the play
+    ```yaml
+    - hosts: webservers
+      vars:
+        http_port: 8080
+    ```
+
+11. **Task variables**
+    * Variables defined for a specific task
+    * Only apply to that task
+
+12. **Role variables** (`roles/x/vars/main.yml`)
+    * Higher-precedence role variables
+
+13. **Block variables**
+    * Variables defined for a block of tasks
+    * Only apply to tasks within that block
+
+14. **Extra variables**
+    * Command line variables using `-e` or `--extra-vars`
+    * Highest precedence, override everything else
+
+## Inventory vs. Playbook Variables
+
+### Inventory Variables (Environment-Specific)
+Variables stored within inventory directories are tied to specific environments:
+
+```
+inventories/
+├── production/           # Production environment
+│   ├── hosts
+│   ├── group_vars/
+│   │   ├── all.yml       # Variables for all production hosts
+│   │   └── webservers.yml # Variables for production webservers
+│   └── host_vars/
+│       └── web1.yml      # Variables for specific production host
+├── staging/              # Staging environment
+│   ├── hosts
+│   ├── group_vars/
+│   │   ├── all.yml       # Variables for all staging hosts
+│   │   └── webservers.yml # Variables for staging webservers
+│   └── host_vars/
+│       └── web1.yml      # Variables for specific staging host
+```
+
+**Key characteristics:**
+- Organized by environment first
+- Good for environment-specific settings (DB credentials, server addresses)
+- Lower precedence than playbook variables
+
+### Playbook Variables (Code-Specific)
+Variables stored alongside playbooks apply across environments:
+
+```
+ansible-project/
+├── site.yml              # Main playbook
+├── group_vars/           # Variables for groups across environments
+│   ├── all.yml           # Variables for all groups
+│   └── webservers.yml    # Variables for webservers group
+└── host_vars/            # Variables for hosts across environments
+    └── web1.yml          # Variables for specific host
+```
+
+**Key characteristics:**
+- Organized by function first
+- Good for application-specific settings (ports, standard configurations)
+- Higher precedence than inventory variables
+- Override environment-specific variables when needed
+
+## Practical Example
+
+If you define the same variable in multiple places:
+
+```yaml
+# roles/webserver/defaults/main.yml (precedence: 1)
+http_port: 80
+
+# inventories/production/group_vars/all.yml (precedence: 3)
+http_port: 8080
+
+# group_vars/webservers.yml (precedence: 6)
+http_port: 8000
+
+# playbook.yml (precedence: 10)
+- hosts: webservers
+  vars:
+    http_port: 9000
+```
+
+The effective value would be `9000` because play variables (10) have higher precedence than playbook group variables (6), which have higher precedence than inventory group variables (3), which have higher precedence than role defaults (1).
+
+## Best Practices
+
+1. **Use role defaults** for baseline configuration that should be easily overridable
+2. **Use inventory variables** for environment-specific settings
+3. **Use playbook variables** for consistent settings across environments
+4. **Use extra vars** for one-off overrides during execution
+5. **Document your variable precedence strategy** for team clarity
 
 ## Using Variables
 
