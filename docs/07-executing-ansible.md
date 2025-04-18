@@ -159,7 +159,7 @@ docker run --rm -v $(pwd):/ansible -v ~/.ssh:/root/.ssh ansible/ansible ansible-
 
 ## Running Ansible with AWX/Tower
 
-For enterprise environments, consider using AWX (open-source) or Ansible Tower (Red Hat's commercial offering):
+For enterprise environments, consider using AWX (open-source) or Red Hat AAP (Red Hat's commercial offering):
 
 1. Schedule playbook runs
 2. Manage credentials securely
